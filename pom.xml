@@ -12,6 +12,7 @@
 
 	<modules>
 		<module>data-001-array</module>
+		<module>data-002-stack</module>
 	</modules>
 	<properties>
 		<java.version>1.8</java.version>
