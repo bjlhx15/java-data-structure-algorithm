@@ -2,6 +2,8 @@ package com.github.bjlhx15.datastructure.algorithm.stack;
 
 import org.junit.Test;
 
+import java.util.Stack;
+
 import static org.junit.Assert.*;
 
 /**
@@ -12,6 +14,23 @@ import static org.junit.Assert.*;
 public class StackWithArrayTest {
 
     @Test
-    public void push() {
+    public void breaketTrue() {
+        String in="a{b(c[d]e)f}";
+        BreaketChecker breaketChecker=new BreaketChecker(in);
+        assertTrue(breaketChecker.check());
+    }
+    @Test
+    public void breaketFalse() {
+        String in="a{b(c[d])e)f}";
+        BreaketChecker breaketChecker=new BreaketChecker(in);
+        assertFalse(breaketChecker.check());
+    }
+
+    @Test
+    public void javaStack() {
+        Stack<Long> a =new Stack<>();
+        String in="a{b(c[d])e)f}";
+        BreaketChecker breaketChecker=new BreaketChecker(in);
+        assertFalse(breaketChecker.check());
     }
 }
