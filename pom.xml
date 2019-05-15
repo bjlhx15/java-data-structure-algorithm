@@ -14,6 +14,7 @@
 		<module>data-001-array</module>
 		<module>data-002-stack</module>
 		<module>data-003-link</module>
+		<module>data-004-tree</module>
 	</modules>
 	<properties>
 		<java.version>1.8</java.version>

@@ -9,7 +9,7 @@ public class Link<E> {
     private Node<E> header;
 
     public Link() {
-        header=null;
+        header=new Node<>(null,null);
     }
     //最后位置添加
     public void addNode(Node node){
