@@ -16,6 +16,8 @@ public class AVLTreeTest {
     }
 
     private static int arr[]= {3,2,1,4,5,6,7,16,15,14,13,12,11,10,8,9};
+//    private static int arr[]= {1,2,3,4,5,6};
+    //private static int arr[]= {5,3,6,2,4,7,1};
 
     public static void main(String[] args) {
         int i;
@@ -42,6 +44,7 @@ public class AVLTreeTest {
         System.out.printf("== 最大值: %d\n", tree.maximum());
         System.out.printf("== 树的详细信息: \n");
         tree.print();
+        tree.displayTree();
 
         i = 8;
         System.out.printf("\n== 删除根节点: %d", i);
@@ -52,6 +55,7 @@ public class AVLTreeTest {
         tree.inOrder();
         System.out.printf("\n== 树的详细信息: \n");
         tree.print();
+        tree.displayTree();
 
         // 销毁二叉树
         tree.destroy();

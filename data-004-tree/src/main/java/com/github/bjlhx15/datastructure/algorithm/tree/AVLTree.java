@@ -1,5 +1,8 @@
 package com.github.bjlhx15.datastructure.algorithm.tree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Java 语言: AVL树
  */
@@ -45,15 +48,15 @@ public class AVLTree<T extends Comparable<T>> {
      * 比较两个值的大小
      */
     private int max(int a, int b) {
-        return a>b ? a : b;
+        return a > b ? a : b;
     }
 
     /*
      * 前序遍历"AVL树"
      */
     private void preOrder(AVLTreeNode<T> tree) {
-        if(tree != null) {
-            System.out.print(tree.key+" ");
+        if (tree != null) {
+            System.out.print(tree.key + " ");
             preOrder(tree.left);
             preOrder(tree.right);
         }
@@ -67,10 +70,9 @@ public class AVLTree<T extends Comparable<T>> {
      * 中序遍历"AVL树"
      */
     private void inOrder(AVLTreeNode<T> tree) {
-        if(tree != null)
-        {
+        if (tree != null) {
             inOrder(tree.left);
-            System.out.print(tree.key+" ");
+            System.out.print(tree.key + " ");
             inOrder(tree.right);
         }
     }
@@ -83,10 +85,10 @@ public class AVLTree<T extends Comparable<T>> {
      * 后序遍历"AVL树"
      */
     private void postOrder(AVLTreeNode<T> tree) {
-        if(tree != null) {
+        if (tree != null) {
             postOrder(tree.left);
             postOrder(tree.right);
-            System.out.print(tree.key+" ");
+            System.out.print(tree.key + " ");
         }
     }
 
@@ -98,7 +100,7 @@ public class AVLTree<T extends Comparable<T>> {
      * (递归实现)查找"AVL树x"中键值为key的节点
      */
     private AVLTreeNode<T> search(AVLTreeNode<T> x, T key) {
-        if (x==null)
+        if (x == null)
             return x;
 
         int cmp = key.compareTo(x.key);
@@ -118,7 +120,7 @@ public class AVLTree<T extends Comparable<T>> {
      * (非递归实现)查找"AVL树x"中键值为key的节点
      */
     private AVLTreeNode<T> iterativeSearch(AVLTreeNode<T> x, T key) {
-        while (x!=null) {
+        while (x != null) {
             int cmp = key.compareTo(x.key);
 
             if (cmp < 0)
@@ -143,7 +145,7 @@ public class AVLTree<T extends Comparable<T>> {
         if (tree == null)
             return null;
 
-        while(tree.left != null)
+        while (tree.left != null)
             tree = tree.left;
         return tree;
     }
@@ -163,7 +165,7 @@ public class AVLTree<T extends Comparable<T>> {
         if (tree == null)
             return null;
 
-        while(tree.right != null)
+        while (tree.right != null)
             tree = tree.right;
         return tree;
     }
@@ -188,8 +190,8 @@ public class AVLTree<T extends Comparable<T>> {
         k2.left = k1.right;
         k1.right = k2;
 
-        k2.height = max( height(k2.left), height(k2.right)) + 1;
-        k1.height = max( height(k1.left), k2.height) + 1;
+        k2.height = max(height(k2.left), height(k2.right)) + 1;
+        k1.height = max(height(k1.left), k2.height) + 1;
 
         return k1;
     }
@@ -206,8 +208,8 @@ public class AVLTree<T extends Comparable<T>> {
         k1.right = k2.left;
         k2.left = k1;
 
-        k1.height = max( height(k1.left), height(k1.right)) + 1;
-        k2.height = max( height(k2.right), k1.height) + 1;
+        k1.height = max(height(k1.left), height(k1.right)) + 1;
+        k2.height = max(height(k2.right), k1.height) + 1;
 
         return k2;
     }
@@ -247,7 +249,7 @@ public class AVLTree<T extends Comparable<T>> {
         if (tree == null) {
             // 新建节点
             tree = new AVLTreeNode<T>(key, null, null);
-            if (tree==null) {
+            if (tree == null) {
                 System.out.println("ERROR: create avltree node failed!");
                 return null;
             }
@@ -277,7 +279,7 @@ public class AVLTree<T extends Comparable<T>> {
             }
         }
 
-        tree.height = max( height(tree.left), height(tree.right)) + 1;
+        tree.height = max(height(tree.left), height(tree.right)) + 1;
 
         return tree;
     }
@@ -297,7 +299,7 @@ public class AVLTree<T extends Comparable<T>> {
      */
     private AVLTreeNode<T> remove(AVLTreeNode<T> tree, AVLTreeNode<T> z) {
         // 根为空 或者 没有要删除的节点，直接返回null。
-        if (tree==null || z==null)
+        if (tree == null || z == null)
             return null;
 
         int cmp = z.key.compareTo(tree.key);
@@ -305,7 +307,7 @@ public class AVLTree<T extends Comparable<T>> {
             tree.left = remove(tree.left, z);
             // 删除节点后，若AVL树失去平衡，则进行相应的调节。
             if (height(tree.right) - height(tree.left) == 2) {
-                AVLTreeNode<T> r =  tree.right;
+                AVLTreeNode<T> r = tree.right;
                 if (height(r.left) > height(r.right))
                     tree = rightLeftRotation(tree);
                 else
@@ -315,7 +317,7 @@ public class AVLTree<T extends Comparable<T>> {
             tree.right = remove(tree.right, z);
             // 删除节点后，若AVL树失去平衡，则进行相应的调节。
             if (height(tree.left) - height(tree.right) == 2) {
-                AVLTreeNode<T> l =  tree.left;
+                AVLTreeNode<T> l = tree.left;
                 if (height(l.right) > height(l.left))
                     tree = leftRightRotation(tree);
                 else
@@ -323,7 +325,7 @@ public class AVLTree<T extends Comparable<T>> {
             }
         } else {    // tree是对应要删除的节点。
             // tree的左右孩子都非空
-            if ((tree.left!=null) && (tree.right!=null)) {
+            if ((tree.left != null) && (tree.right != null)) {
                 if (height(tree.left) > height(tree.right)) {
                     // 如果tree的左子树比右子树高；
                     // 则(01)找出tree的左子树中的最大节点
@@ -347,11 +349,12 @@ public class AVLTree<T extends Comparable<T>> {
                 }
             } else {
                 AVLTreeNode<T> tmp = tree;
-                tree = (tree.left!=null) ? tree.left : tree.right;
+                tree = (tree.left != null) ? tree.left : tree.right;
                 tmp = null;
             }
         }
-
+        if (tree != null)
+            tree.height = max(height(tree.left), height(tree.right)) + 1;
         return tree;
     }
 
@@ -366,8 +369,8 @@ public class AVLTree<T extends Comparable<T>> {
      * 销毁AVL树
      */
     private void destroy(AVLTreeNode<T> tree) {
-        if (tree==null)
-            return ;
+        if (tree == null)
+            return;
 
         if (tree.left != null)
             destroy(tree.left);
@@ -390,19 +393,101 @@ public class AVLTree<T extends Comparable<T>> {
      *                1，表示该节点是它的父结点的右孩子。
      */
     private void print(AVLTreeNode<T> tree, T key, int direction) {
-        if(tree != null) {
-            if(direction==0)    // tree是根节点
+        if (tree != null) {
+            if (direction == 0)    // tree是根节点
                 System.out.printf("%2d is root\n", tree.key, key);
             else                // tree是分支节点
-                System.out.printf("%2d is %2d's %6s child\n", tree.key, key, direction==1?"right" : "left");
+                System.out.printf("%2d is %2d's %6s child\n", tree.key, key, direction == 1 ? "right" : "left");
 
             print(tree.left, tree.key, -1);
-            print(tree.right,tree.key,  1);
+            print(tree.right, tree.key, 1);
         }
     }
 
     public void print() {
         if (mRoot != null)
             print(mRoot, mRoot.key, 0);
+    }
+
+    //以树的形式打印出该树
+    public void displayTree() {
+        int depth = getTreeDepth();
+        ArrayList<AVLTreeNode> currentLayerNodes = new ArrayList<AVLTreeNode>();
+        currentLayerNodes.add(mRoot);  //存储该层所有节点
+        int layerIndex = 1;
+        while (layerIndex <= depth) {
+            int NodeBlankNum = (int) Math.pow(2, depth - layerIndex) - 1;  //在节点之前和之后应该打印几个空位
+            for (int i = 0; i < currentLayerNodes.size(); i++) {
+                AVLTreeNode node = currentLayerNodes.get(i);
+                printBlank(NodeBlankNum);   //打印节点之前的空位
+
+                if (node == null) {
+                    System.out.print("*\t");  //如果该节点为null，用空位代替
+                } else {
+                    System.out.print(node.key + "\t");  //打印该节点
+                }
+
+                printBlank(NodeBlankNum);  //打印节点之后的空位
+                System.out.print("*\t");   //补齐空位
+            }
+            System.out.println();
+            layerIndex++;
+            currentLayerNodes = getAllNodeOfThisLayer(currentLayerNodes);  //获取下一层所有的节点
+        }
+    }
+
+    //获取树的深度
+    public int getTreeDepth() {
+        if (mRoot == null) {
+            return 0;
+        }
+        return getDepth(mRoot, 1);
+    }
+
+    //私有方法，用迭代方法来获取左子树和右子树的最大深度，返回两者最大值
+    private int getDepth(AVLTreeNode currentNode, int initDeep) {
+        int deep = initDeep;  //当前节点已到达的深度
+        int leftDeep = initDeep;
+        int rightDeep = initDeep;
+        if (currentNode.left != null) {  //计算当前节点左子树的最大深度
+            leftDeep = getDepth(currentNode.left, deep + 1);
+        }
+        if (currentNode.right != null) {  //计算当前节点右子树的最大深度
+            rightDeep = getDepth(currentNode.right, deep + 1);
+        }
+
+        return Math.max(leftDeep, rightDeep);
+    }
+
+    //打印指定个数的空位
+    private void printBlank(int num) {
+        for (int i = 0; i < num; i++) {
+            System.out.print("*\t");
+        }
+    }
+
+    //获取指定节点集合的所有子节点
+    private ArrayList getAllNodeOfThisLayer(List parentNodes) {
+        ArrayList list = new ArrayList<AVLTreeNode>();
+        AVLTreeNode parentNode;
+        for (int i = 0; i < parentNodes.size(); i++) {
+            parentNode = (AVLTreeNode) parentNodes.get(i);
+            if (parentNode != null) {
+                if (parentNode.left != null) {  //如果上层的父节点存在左子节点，加入集合
+                    list.add(parentNode.left);
+                } else {
+                    list.add(null);  //如果上层的父节点不存在左子节点，用null代替，一样加入集合
+                }
+                if (parentNode.right != null) {
+                    list.add(parentNode.right);
+                } else {
+                    list.add(null);
+                }
+            } else {  //如果上层父节点不存在，用两个null占位，代表左右子节点
+                list.add(null);
+                list.add(null);
+            }
+        }
+        return list;
     }
 }
